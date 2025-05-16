@@ -257,8 +257,7 @@ const Home = () => {
               
               {/* Footer section with blue summary */}
               <div style={{
-                padding: '16px 20px 20px',
-                borderTop: '1px solid #f5f5f5'
+                padding: '16px 20px 20px'
               }}>
                 <div style={{
                   backgroundColor: selectedLines.length > 0 ? '#f0f7ff' : '#f5f5f5',
@@ -336,7 +335,6 @@ const Home = () => {
           {selectLinesCollapsed && (
             <div style={{
               padding: '16px 20px',
-              borderTop: '1px solid #f5f5f5',
               backgroundColor: 'white',
               display: 'flex',
               justifyContent: 'space-between',
