@@ -311,14 +311,14 @@ return (
               </div>
             </div>
             <div className="conflict-cell">Spring Sale</div>
-            <div className="conflict-cell">4 items</div>
+            <div className="conflict-cell">4</div>
             <div className="conflict-cell conflict-date">
-              2024-01-01
+              01/01/2024
               <div className="conflict-tooltip">
                 This date conflicts with your selected start date.
               </div>
             </div>
-            <div className="conflict-cell">2024-02-01</div>
+            <div className="conflict-cell">02/01/2024</div>
             <div className="conflict-cell">
               <a href="#" onClick={handleResolveClick} className="resolve-link">
                 Resolve <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/link.svg" alt="External link" className="link-icon" />
