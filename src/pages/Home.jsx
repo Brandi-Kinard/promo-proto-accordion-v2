@@ -54,7 +54,6 @@ const jifLines = [
 
 const Home = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [step, setStep] = useState('select');
   const [selectedLines, setSelectedLines] = useState([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -73,6 +72,10 @@ const Home = () => {
     hasConflict: false,
   });
 
+  // Accordion states
+  const [selectLinesCollapsed, setSelectLinesCollapsed] = useState(false);
+  const [configPromoCollapsed, setConfigPromoCollapsed] = useState(true);
+
   const defaultForm = {
     promoType: '',
     badgeType: '',
@@ -89,10 +92,11 @@ const Home = () => {
 
   const handleTriggerClick = () => {
     setIsPanelOpen(true);
-    setStep('select');
     setSelectedLines([]);
     setFormState(defaultForm);
     setHasFormChanged(false);
+    setSelectLinesCollapsed(false);
+    setConfigPromoCollapsed(true);
   };
 
   const toggleLine = (id) => {
@@ -149,10 +153,11 @@ const Home = () => {
 
   const handleCancel = () => {
     setIsPanelOpen(false);
-    setStep('select');
     setSelectedLines([]);
     setFormState(defaultForm);
     setHasFormChanged(false);
+    setSelectLinesCollapsed(false);
+    setConfigPromoCollapsed(true);
   };
 
   const handleRevert = () => {
@@ -161,6 +166,11 @@ const Home = () => {
   };
 
   const handleApplyPromo = () => {
+    if (!isFormComplete()) {
+      alert('Please complete all required fields before applying the promotion.');
+      return;
+    }
+    
     // Show success modal
     setShowSuccessModal(true);
     
@@ -172,51 +182,255 @@ const Home = () => {
     }, 2200);
   };
 
-  const renderPanelContent = () => {
-    if (step === 'select') {
-      return (
-        <LineSelection
-          lines={jifLines}
-          selectedLines={selectedLines}
-          toggleLine={toggleLine}
-        />
-      );
-    }
+  const renderAccordionContent = () => {
+    return (
+      <div style={{ padding: '24px' }}>
+        {/* Select Lines Card */}
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          overflow: 'hidden',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          marginBottom: '24px'
+        }}>
+          {/* Header */}
+          <div 
+            style={{
+              padding: '12px 20px',
+              borderBottom: '1px solid #eee',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              cursor: 'pointer'
+            }}
+            onClick={() => setSelectLinesCollapsed(!selectLinesCollapsed)}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#0071dc',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '14px'
+              }}>
+                1
+              </div>
+              <h3 style={{ margin: 0, fontSize: '16px' }}>Select Lines</h3>
+            </div>
+            
+            {/* Dynamic header content */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {selectLinesCollapsed && selectedLines.length > 0 && (
+                <>
+                  <span>{selectedLines.length} lines selected</span>
+                  <div style={{ display: 'flex', marginLeft: '8px' }}>
+                    {selectedLines.slice(0, 3).map((lineId, idx) => {
+                      const line = jifLines.find(l => l.id === lineId);
+                      return (
+                        <img
+                          key={lineId}
+                          src={line?.thumbnail}
+                          alt=""
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '4px',
+                            marginLeft: idx > 0 ? '-10px' : '0',
+                            border: 'none',
+                            objectFit: 'contain',
+                            zIndex: selectedLines.length - idx
+                          }}
+                        />
+                      );
+                    })}
+                    {selectedLines.length > 3 && (
+                      <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
+                    )}
+                  </div>
+                </>
+              )}
+              <img 
+                src={`https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/${selectLinesCollapsed ? 'down' : 'up'}-caret.svg`}
+                alt=""
+                style={{ width: '20px', height: '20px' }}
+              />
+            </div>
+          </div>
 
-    if (step === 'configure') {
-      return (
-        <ConfigurePromo
-          selectedLines={selectedLines}
-          formState={formState}
-          onFormChange={handleFormChange}
-          onBack={() => setStep('select')}
-          onCancel={handleCancel}
-          onApplyPromo={handleApplyPromo}
-          onRevert={handleRevert}
-        />
-      );
-    }
+          {/* Content */}
+          {!selectLinesCollapsed && (
+            <div style={{ padding: '20px', backgroundColor: 'white' }}>
+              {selectedLines.length > 0 && (
+                <div style={{
+                  backgroundColor: '#f0f7ff',
+                  borderRadius: '6px',
+                  padding: '12px 16px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '16px'
+                }}>
+                  <span style={{ fontWeight: '500' }}>
+                    {selectedLines.length} lines selected
+                  </span>
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedLines([]);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#0071dc',
+                      cursor: 'pointer',
+                      textDecoration: 'underline'
+                    }}
+                  >
+                    Clear
+                  </button>
+                </div>
+              )}
+              
+              <LineSelection
+                lines={jifLines}
+                selectedLines={selectedLines}
+                toggleLine={toggleLine}
+              />
+              
+              {selectedLines.length > 0 && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setConfigPromoCollapsed(false);
+                    setTimeout(() => {
+                      const configSection = document.querySelector('#config-section');
+                      configSection?.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                  }}
+                  style={{
+                    backgroundColor: '#0071dc',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '25px',
+                    padding: '8px 20px',
+                    cursor: 'pointer',
+                    fontWeight: '500',
+                    marginTop: '16px',
+                    width: '100%'
+                  }}
+                >
+                  Continue to Step 2
+                </button>
+              )}
+            </div>
+          )}
+        </div>
 
-    return null;
+        {/* Configure Promotion Card */}
+        <div 
+          id="config-section"
+          style={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            overflow: 'hidden',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
+          }}
+        >
+          {/* Header */}
+          <div 
+            style={{
+              padding: '12px 20px',
+              borderBottom: '1px solid #eee',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              cursor: 'pointer'
+            }}
+            onClick={() => setConfigPromoCollapsed(!configPromoCollapsed)}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{
+                width: '24px',
+                height: '24px',
+                borderRadius: '50%',
+                backgroundColor: '#0071dc',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '14px'
+              }}>
+                2
+              </div>
+              <h3 style={{ margin: 0, fontSize: '16px' }}>Configure Promotion</h3>
+            </div>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              {configPromoCollapsed && (
+                <span style={{ color: selectedLines.length === 0 ? '#666' : '#333' }}>
+                  {selectedLines.length === 0 ? 'Please select lines first' : 'Configure promotion details'}
+                </span>
+              )}
+              <img 
+                src={`https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/${configPromoCollapsed ? 'down' : 'up'}-caret.svg`}
+                alt=""
+                style={{ width: '20px', height: '20px' }}
+              />
+            </div>
+          </div>
+
+          {/* Content */}
+          {!configPromoCollapsed && (
+            <div style={{ padding: '20px', backgroundColor: 'white' }}>
+              <ConfigurePromo
+                selectedLines={selectedLines}
+                formState={formState}
+                onFormChange={handleFormChange}
+                onBack={() => {
+                  setSelectLinesCollapsed(false);
+                  setConfigPromoCollapsed(true);
+                }}
+                onCancel={handleCancel}
+                onApplyPromo={handleApplyPromo}
+                onRevert={handleRevert}
+                jifLines={jifLines}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
   };
 
   const renderFooter = () => {
-    if (step === 'select') {
+    const getActiveSection = () => {
+      if (!selectLinesCollapsed) return 'lines';
+      if (!configPromoCollapsed) return 'config';
+      return null;
+    };
+
+    const activeSection = getActiveSection();
+
+    if (activeSection === 'lines') {
       return (
         <div className="footer-actions">
           <span>{selectedLines.length} selected</span>
-          <button 
-            onClick={() => setStep('configure')} 
-            disabled={selectedLines.length === 0}
-            className="apply-btn"
-          >
-            Next
-          </button>
+          <div className="right-actions">
+            <button className="cancel-btn" onClick={handleCancel}>
+              Cancel
+            </button>
+          </div>
         </div>
       );
     }
 
-    if (step === 'configure') {
+    if (activeSection === 'config') {
       return (
         <div className="footer-actions">
           <button 
@@ -232,7 +446,6 @@ const Home = () => {
             </button>
             <button
               className="apply-btn"
-              disabled={!isFormComplete()}
               onClick={handleApplyPromo}
             >
               Apply promo
@@ -241,12 +454,22 @@ const Home = () => {
         </div>
       );
     }
+
+    return (
+      <div className="footer-actions">
+        <div className="right-actions">
+          <button className="cancel-btn" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
   };
 
   return (
     <Layout>
       <div style={{ flex: 1, padding: '20px', overflowY: 'auto' }}>
-        <h1>eComm Promo Creating/Conflict Management in OPT - v4 Prototype</h1>
+        <h1>eComm Promo Creating/Conflict Management in OPT - v4 Prototype (Accordion)</h1>
         
         <button
           onClick={handleTriggerClick}
@@ -266,13 +489,14 @@ const Home = () => {
         
         <div className="prototype-overview">
           <h2>Welcome! 👋</h2>
-          <p>This prototype demonstrates the new promotion management flow in OPT.</p>
+          <p>This prototype demonstrates the accordion-style promotion management flow in OPT.</p>
           <p className="creator-info">Created by: <strong>Brandi Kinard</strong> - Senior UX Designer, Pricing Team</p>
           
           <div className="overview-section">
             <h3>What you'll test:</h3>
             <ul>
-              <li>Two-step flow: Select lines → Configure promo</li>
+              <li>Accordion-style UI with collapsible sections</li>
+              <li>Progressive disclosure pattern</li>
               <li>Conflict detection and resolution workflow</li>
               <li>Cross-tool experience between OPT and PDP</li>
             </ul>
@@ -293,9 +517,9 @@ const Home = () => {
           <div className="feedback-section">
             <h3>Your feedback needed on:</h3>
             <ul>
-              <li>Flow intuitiveness</li>
+              <li>Accordion pattern effectiveness</li>
+              <li>Progressive disclosure flow</li>
               <li>Conflict resolution clarity</li>
-              <li>Cross-tool experience</li>
               <li>Any pain points</li>
             </ul>
           </div>
@@ -311,7 +535,7 @@ const Home = () => {
           onClose={handleCancel}
           footer={renderFooter()}
         >
-          {renderPanelContent()}
+          {renderAccordionContent()}
         </PromoPanel>
       )}
       
