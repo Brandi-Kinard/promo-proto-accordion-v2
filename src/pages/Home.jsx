@@ -392,7 +392,7 @@ const Home = () => {
 
           {/* Content */}
           {!configPromoCollapsed && (
-            <div style={{ padding: '20px', backgroundColor: 'white' }}>
+            <div style={{ backgroundColor: 'white', position: 'relative', maxHeight: '600px', overflowY: 'auto' }}>
               <ConfigurePromo
                 selectedLines={selectedLines}
                 formState={formState}

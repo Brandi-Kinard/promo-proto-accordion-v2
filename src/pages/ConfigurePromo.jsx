@@ -87,8 +87,8 @@ const isFormValid = [
 
 return (
 <div className="configure-promo">
-  <div className="sticky-wrapper">
-    {formState.hasConflict && !conflictResolved && (
+  {formState.hasConflict && !conflictResolved && (
+    <div className="sticky-wrapper">
       <div className="banner-error" onClick={() => handleScrollToConflict()}>
         <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/error-outlined.svg" alt="Error" className="error-icon" />
         <div className="banner-error-text">
@@ -103,10 +103,11 @@ return (
           </a>
         </div>
       </div>
-    )}
-  </div>
+    </div>
+  )}
 
-  <p className="section-description">Define promotion details for the selected items.</p>
+  <div className="content-wrapper">
+    <p className="section-description">Define promotion details for the selected items.</p>
 
   <div className="form-section">
     <h3>Choose promo criteria</h3>
@@ -328,6 +329,7 @@ return (
       )}
     </div>
   )}
+  </div>
 </div>
 );
 }

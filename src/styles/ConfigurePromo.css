@@ -2,8 +2,6 @@
 .configure-promo {
     padding: 0;
     font-family: system-ui, sans-serif;
-    overflow-y: auto;
-    max-height: 100%;
   }
   
   /* Sticky wrap */
@@ -12,7 +10,10 @@
     top: 0;
     z-index: 50;
     background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .content-wrapper {
+    padding: 20px;
   }
   
   /* Line summary row */
@@ -220,15 +221,14 @@
   
   /* Section description */
   .section-description {
-    padding: 12px 24px 0;
     font-size: 14px;
     color: #555;
-    margin-bottom: 0;
+    margin: 0 0 16px 0;
   }
   
   /* Form sections */
   .form-section {
-    padding: 16px 24px;
+    margin-bottom: 24px;
   }
   
   .form-section h3 {
