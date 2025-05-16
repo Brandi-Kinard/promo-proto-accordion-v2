@@ -231,6 +231,14 @@ const Home = () => {
                 }}>
                   Choose the lines to apply a promotion to.
                 </p>
+                <h4 style={{
+                  margin: '0 0 12px',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#333'
+                }}>
+                  Product lines ({jifLines.length})
+                </h4>
                 <LineSelection
                   lines={jifLines}
                   selectedLines={selectedLines}
