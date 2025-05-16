@@ -32,8 +32,6 @@ onCancel = () => {},
 onApplyPromo = () => {},
 onRevert = () => {},
 jifLines = [],
-onClosePanel = () => {},
-onReopenPanel = () => {},
 }) {
 const conflictRef = useRef(null);
 const [conflictsExpanded, setConflictsExpanded] = useState(false);
@@ -42,13 +40,11 @@ const [showItemsModal, setShowItemsModal] = useState(false);
 
 const handleItemsClick = (e) => {
   e.preventDefault();
-  onClosePanel();
   setShowItemsModal(true);
 };
 
 const handleModalClose = () => {
   setShowItemsModal(false);
-  onReopenPanel();
 };
 
 const handleChange = (field) => (e) => {

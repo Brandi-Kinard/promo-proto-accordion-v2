@@ -54,7 +54,6 @@ const jifLines = [
 
 const Home = () => {
   const [isPanelOpen, setIsPanelOpen] = useState(false);
-  const [isPanelTemporarilyHidden, setIsPanelTemporarilyHidden] = useState(false);
   const [selectedLines, setSelectedLines] = useState([]);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -154,7 +153,6 @@ const Home = () => {
 
   const handleCancel = () => {
     setIsPanelOpen(false);
-    setIsPanelTemporarilyHidden(false);
     setSelectedLines([]);
     setFormState(defaultForm);
     setHasFormChanged(false);
@@ -415,8 +413,6 @@ const Home = () => {
                 onApplyPromo={handleApplyPromo}
                 onRevert={handleRevert}
                 jifLines={jifLines}
-                onClosePanel={() => setIsPanelTemporarilyHidden(true)}
-                onReopenPanel={() => setIsPanelTemporarilyHidden(false)}
               />
             </div>
           )}
@@ -546,7 +542,7 @@ const Home = () => {
         <div style={{ height: '60px' }}></div>
       </div>
 
-      {isPanelOpen && !isPanelTemporarilyHidden && (
+      {isPanelOpen && (
         <PromoPanel
           title="Create eComm Promo"
           onClose={handleCancel}
