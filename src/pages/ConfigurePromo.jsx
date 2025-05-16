@@ -73,31 +73,6 @@ const suffix = i < 12 ? 'am' : 'pm';
 return `${hour}:00 ${suffix} CST`;
 });
 
-const thumbnails = selectedLines.slice(0, 3).map((lineId, idx) => {
-const oz = lineId.split('-')[1];
-// Calculate position differently based on number of selected items
-let rightOffset;
-if (selectedLines.length === 1) {
-  rightOffset = 0; // Single item - align to right edge
-} else if (selectedLines.length === 2) {
-  rightOffset = idx === 0 ? 22 : 0; // Two items - special case
-} else if (selectedLines.length > 3) {
-  rightOffset = (2 - idx) * 22 + 24; // 4+ items - space for +N indicator
-} else {
-  rightOffset = (2 - idx) * 22; // 3 items - standard spacing
-}
-
-return (
-  <img
-    key={lineId}
-    src={`https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/${oz}.png`}
-    alt={`${oz}oz`}
-    className="line-thumb"
-    style={{ right: `${rightOffset}px`, zIndex: 10 - idx }}
-  />
-);
-});
-
 const isFormValid = [
 'promoType',
 'badgeType',
@@ -113,36 +88,6 @@ const isFormValid = [
 return (
 <div className="configure-promo">
   <div className="sticky-wrapper">
-    <div className="line-summary-bar">
-      <div className="line-back-section">
-        <button className="back-button" onClick={onBack}>
-          <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/left-caret.svg" alt="Back" />
-        </button>
-        <span className="line-count">{selectedLines.length} line{selectedLines.length !== 1 ? 's' : ''} selected</span>
-      </div>
-      <div className="line-thumbnails" title="Selected lines">
-        <div className="thumbnails-wrapper">
-          {thumbnails}
-          {selectedLines.length > 3 && (
-            <span className="extra-thumbnails">
-              +{selectedLines.length - 3}
-            </span>
-          )}
-          <div className="thumbnails-tooltip">
-            <div className="tooltip-header">Selected lines:</div>
-            {jifLines && jifLines
-              .filter(line => selectedLines.includes(line.id))
-              .map(line => (
-                <div key={line.id} className="tooltip-line-item">
-                  {line.name}
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-    
     {formState.hasConflict && !conflictResolved && (
       <div className="banner-error" onClick={() => handleScrollToConflict()}>
         <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/error-outlined.svg" alt="Error" className="error-icon" />

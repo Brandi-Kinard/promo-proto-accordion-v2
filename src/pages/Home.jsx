@@ -249,36 +249,79 @@ const Home = () => {
           {/* Content */}
           {!selectLinesCollapsed && (
             <div style={{ backgroundColor: 'white', position: 'relative' }}>
-              {/* Sticky header section */}
-              <div style={{
-                position: 'sticky',
-                top: 0,
-                backgroundColor: 'white',
-                padding: '20px 20px 16px',
-                borderBottom: '1px solid #f5f5f5',
-                zIndex: 1
+              {/* Scrollable content */}
+              <div style={{ 
+                maxHeight: '320px',
+                overflowY: 'auto',
+                padding: '20px 20px 0'
               }}>
                 <p style={{ 
-                  margin: '0 0 12px', 
+                  margin: '0 0 16px', 
                   color: '#555',
                   fontSize: '14px',
                   lineHeight: '1.4'
                 }}>
                   Choose the lines to apply a promotion to.
                 </p>
-                
-                {selectedLines.length > 0 && (
+                <LineSelection
+                  lines={jifLines}
+                  selectedLines={selectedLines}
+                  toggleLine={toggleLine}
+                />
+              </div>
+              
+              {/* Footer section with blue summary */}
+              {selectedLines.length > 0 && (
+                <div style={{
+                  padding: '16px 20px 20px',
+                  borderTop: '1px solid #f5f5f5'
+                }}>
                   <div style={{
                     backgroundColor: '#f0f7ff',
                     borderRadius: '6px',
                     padding: '12px 16px',
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    cursor: 'pointer'
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setConfigPromoCollapsed(false);
+                    setTimeout(() => {
+                      const configSection = document.querySelector('#config-section');
+                      configSection?.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
                   }}>
-                    <span style={{ fontWeight: '500' }}>
-                      {selectedLines.length} lines selected
-                    </span>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <span style={{ fontWeight: '500' }}>
+                        {selectedLines.length} lines selected
+                      </span>
+                      <div style={{ display: 'flex', marginLeft: '24px' }}>
+                        {selectedLines.slice(0, 3).map((lineId, idx) => {
+                          const line = jifLines.find(l => l.id === lineId);
+                          return (
+                            <img
+                              key={lineId}
+                              src={line?.thumbnail}
+                              alt=""
+                              style={{
+                                width: '28px',
+                                height: '28px',
+                                borderRadius: '4px',
+                                marginLeft: idx > 0 ? '-10px' : '0',
+                                border: 'none',
+                                objectFit: 'contain',
+                                zIndex: selectedLines.length - idx
+                              }}
+                            />
+                          );
+                        })}
+                        {selectedLines.length > 3 && (
+                          <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
+                        )}
+                      </div>
+                    </div>
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
@@ -295,52 +338,80 @@ const Home = () => {
                       Clear
                     </button>
                   </div>
-                )}
-              </div>
-              
-              {/* Scrollable content */}
-              <div style={{ 
-                maxHeight: '280px',
-                overflowY: 'auto',
-                padding: '0 20px 20px'
-              }}>
-                <LineSelection
-                  lines={jifLines}
-                  selectedLines={selectedLines}
-                  toggleLine={toggleLine}
-                />
-              </div>
-              
-              {/* Continue button section */}
-              {selectedLines.length > 0 && (
-                <div style={{
-                  padding: '16px 20px 20px',
-                  borderTop: '1px solid #f5f5f5'
-                }}>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setConfigPromoCollapsed(false);
-                      setTimeout(() => {
-                        const configSection = document.querySelector('#config-section');
-                        configSection?.scrollIntoView({ behavior: 'smooth' });
-                      }, 300);
-                    }}
-                    style={{
-                      backgroundColor: '#0071dc',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '25px',
-                      padding: '8px 20px',
-                      cursor: 'pointer',
-                      fontWeight: '500',
-                      width: '100%'
-                    }}
-                  >
-                    Continue to Step 2
-                  </button>
                 </div>
               )}
+            </div>
+          )}
+          
+          {/* Persistent footer when collapsed and lines selected */}
+          {selectLinesCollapsed && selectedLines.length > 0 && (
+            <div style={{
+              padding: '16px 20px',
+              borderTop: '1px solid #f5f5f5',
+              backgroundColor: 'white'
+            }}>
+              <div style={{
+                backgroundColor: '#f0f7ff',
+                borderRadius: '6px',
+                padding: '12px 16px',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                cursor: 'pointer'
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setConfigPromoCollapsed(false);
+                setTimeout(() => {
+                  const configSection = document.querySelector('#config-section');
+                  configSection?.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <span style={{ fontWeight: '500' }}>
+                    {selectedLines.length} lines selected
+                  </span>
+                  <div style={{ display: 'flex', marginLeft: '24px' }}>
+                    {selectedLines.slice(0, 3).map((lineId, idx) => {
+                      const line = jifLines.find(l => l.id === lineId);
+                      return (
+                        <img
+                          key={lineId}
+                          src={line?.thumbnail}
+                          alt=""
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '4px',
+                            marginLeft: idx > 0 ? '-10px' : '0',
+                            border: 'none',
+                            objectFit: 'contain',
+                            zIndex: selectedLines.length - idx
+                          }}
+                        />
+                      );
+                    })}
+                    {selectedLines.length > 3 && (
+                      <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
+                    )}
+                  </div>
+                </div>
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedLines([]);
+                  }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#0071dc',
+                    cursor: 'pointer',
+                    textDecoration: 'underline'
+                  }}
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           )}
         </div>
