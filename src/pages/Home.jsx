@@ -100,9 +100,18 @@ const Home = () => {
   };
 
   const toggleLine = (id) => {
-    setSelectedLines((prev) =>
-      prev.includes(id) ? prev.filter((line) => line !== id) : [...prev, id]
-    );
+    setSelectedLines((prev) => {
+      const newSelection = prev.includes(id) 
+        ? prev.filter((line) => line !== id) 
+        : [...prev, id];
+      
+      // Auto-expand config card when lines are selected
+      if (newSelection.length > 0 && configPromoCollapsed) {
+        setConfigPromoCollapsed(false);
+      }
+      
+      return newSelection;
+    });
   };
 
   const handleFormChange = (field, value) => {
