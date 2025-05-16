@@ -584,13 +584,14 @@
     border-radius: 8px;
     margin: 16px 0;
     background: white;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
   
   /* Custom conflict content */
   .conflict-content {
     padding: 0 20px 16px;
+    overflow: visible;
   }
   
   .conflict-header-row {
@@ -619,6 +620,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  
+  .conflict-cell.conflict-date {
+    overflow: visible;
   }
   
   .conflict-cell:last-child {
@@ -728,8 +733,8 @@
     text-align: left;
     border-radius: 4px;
     padding: 8px 10px;
-    z-index: 100;
-    bottom: 125%;
+    z-index: 9999;
+    top: 125%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
@@ -743,12 +748,12 @@
   .conflict-tooltip::after {
     content: "";
     position: absolute;
-    top: 100%;
+    bottom: 100%;
     left: 50%;
     margin-left: -8px;
     border-width: 8px;
     border-style: solid;
-    border-color: #222 transparent transparent transparent;
+    border-color: transparent transparent #222 transparent;
   }
   
   .conflict-date:hover .conflict-tooltip {
