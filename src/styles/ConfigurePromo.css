@@ -944,6 +944,7 @@
     overflow-y: auto;
     flex: 1;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    max-height: 240px; /* Fixed height to show about 4 items before scrolling */
   }
   
   .modal-item-row {

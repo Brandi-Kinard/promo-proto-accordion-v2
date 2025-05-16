@@ -98,17 +98,7 @@ const conflictingItems = [
   },
   {
     id: '551448123-5',
-    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Chocolate',
-    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
-  },
-  {
-    id: '551448123-6',
     name: 'JIF-Core Stabilized Peanut Butter 64 oz - Extra Creamy',
-    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
-  },
-  {
-    id: '551448123-7',
-    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Honey',
     thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
   }
 ];
@@ -351,7 +341,7 @@ return (
             </div>
             <div className="conflict-cell">Spring Sale</div>
             <div className="conflict-cell">
-              <a href="#" onClick={(e) => { e.preventDefault(); setShowItemsModal(true); }} className="items-link">7</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setShowItemsModal(true); }} className="items-link">5</a>
             </div>
             <div className="conflict-cell conflict-date">
               01/01/2024
@@ -400,7 +390,7 @@ return (
                     </a>
                   </div>
                   <div className="modal-table-cell">Spring Sale</div>
-                  <div className="modal-table-cell">7</div>
+                  <div className="modal-table-cell">5</div>
                   <div className="modal-table-cell">01/01/2024</div>
                   <div className="modal-table-cell">02/01/2024</div>
                 </div>
