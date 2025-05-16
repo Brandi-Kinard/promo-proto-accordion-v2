@@ -36,6 +36,7 @@ jifLines = [],
 const conflictRef = useRef(null);
 const [conflictsExpanded, setConflictsExpanded] = useState(false);
 const [conflictResolved, setConflictResolved] = useState(false);
+const [showItemsModal, setShowItemsModal] = useState(false);
 
 const handleChange = (field) => (e) => {
 const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -72,6 +73,30 @@ const hour = i % 12 === 0 ? 12 : i % 12;
 const suffix = i < 12 ? 'am' : 'pm';
 return `${hour}:00 ${suffix} CST`;
 });
+
+// Conflicting items data
+const conflictingItems = [
+  {
+    id: '551448123-1',
+    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Creamy',
+    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
+  },
+  {
+    id: '551448123-2',
+    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Crunchy',
+    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
+  },
+  {
+    id: '551448123-3',
+    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Natural',
+    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
+  },
+  {
+    id: '551448123-4',
+    name: 'JIF-Core Stabilized Peanut Butter 64 oz - Reduced Fat',
+    thumbnail: 'https://raw.githubusercontent.com/Brandi-Kinard/imageSamples/main/JIF%20peanut%20butter/64oz.png'
+  }
+];
 
 const isFormValid = [
 'promoType',
@@ -310,7 +335,9 @@ return (
               </div>
             </div>
             <div className="conflict-cell">Spring Sale</div>
-            <div className="conflict-cell">4</div>
+            <div className="conflict-cell">
+              <a href="#" onClick={(e) => { e.preventDefault(); setShowItemsModal(true); }} className="items-link">4</a>
+            </div>
             <div className="conflict-cell conflict-date">
               01/01/2024
               <div className="conflict-tooltip">
@@ -329,6 +356,51 @@ return (
     </div>
   )}
   </div>
+  
+  {/* Conflicting Items Modal */}
+  {showItemsModal && (
+    <div className="modal-overlay" onClick={() => setShowItemsModal(false)}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h3>Conflicting items</h3>
+          <button className="modal-close" onClick={() => setShowItemsModal(false)}>
+            <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/close.svg" alt="Close" />
+          </button>
+        </div>
+        
+        <div className="modal-body">
+          <div className="modal-table-wrapper">
+            <div className="modal-table">
+              <div className="modal-table-row">
+                <div className="modal-table-cell">
+                  <a href="#" onClick={handleResolveClick} className="modal-submap-link">
+                    Submap
+                    <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/link.svg" alt="External link" className="link-icon" />
+                  </a>
+                </div>
+                <div className="modal-table-cell">Spring Sale</div>
+                <div className="modal-table-cell">4</div>
+                <div className="modal-table-cell">01/01/2024</div>
+                <div className="modal-table-cell">02/01/2024</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="modal-items-section">
+            {conflictingItems.map(item => (
+              <div key={item.id} className="modal-item-row">
+                <img src={item.thumbnail} alt="" className="modal-item-thumbnail" />
+                <div className="modal-item-info">
+                  <div className="modal-item-name">{item.name}</div>
+                  <div className="modal-item-id">#{item.id}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
 </div>
 );
 }
