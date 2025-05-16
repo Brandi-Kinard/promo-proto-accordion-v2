@@ -444,57 +444,24 @@ const Home = () => {
   };
 
   const renderFooter = () => {
-    const getActiveSection = () => {
-      if (!selectLinesCollapsed) return 'lines';
-      if (!configPromoCollapsed) return 'config';
-      return null;
-    };
-
-    const activeSection = getActiveSection();
-
-    if (activeSection === 'lines') {
-      return (
-        <div className="footer-actions">
-          <span>{selectedLines.length} selected</span>
-          <div className="right-actions">
-            <button className="cancel-btn" onClick={handleCancel}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    if (activeSection === 'config') {
-      return (
-        <div className="footer-actions">
-          <button 
-            className="revert-btn" 
-            onClick={handleRevert}
-            disabled={!hasFormChanged}
-          >
-            Revert
-          </button>
-          <div className="right-actions">
-            <button className="cancel-btn" onClick={handleCancel}>
-              Cancel
-            </button>
-            <button
-              className="apply-btn"
-              onClick={handleApplyPromo}
-            >
-              Apply promo
-            </button>
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div className="footer-actions">
+        <button 
+          className="revert-btn" 
+          onClick={handleRevert}
+          disabled={!hasFormChanged}
+        >
+          Revert
+        </button>
         <div className="right-actions">
           <button className="cancel-btn" onClick={handleCancel}>
             Cancel
+          </button>
+          <button
+            className="apply-btn"
+            onClick={handleApplyPromo}
+          >
+            Apply promo
           </button>
         </div>
       </div>
