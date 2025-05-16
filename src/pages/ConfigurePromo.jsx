@@ -394,15 +394,17 @@ return (
           </div>
           
           <div className="modal-items-section">
-            {conflictingItems.map(item => (
-              <div key={item.id} className="modal-item-row">
-                <img src={item.thumbnail} alt="" className="modal-item-thumbnail" />
-                <div className="modal-item-info">
-                  <div className="modal-item-name">{item.name}</div>
-                  <div className="modal-item-id">#{item.id}</div>
+            <div className="modal-items-container">
+              {conflictingItems.map(item => (
+                <div key={item.id} className="modal-item-row">
+                  <img src={item.thumbnail} alt="" className="modal-item-thumbnail" />
+                  <div className="modal-item-info">
+                    <div className="modal-item-name">{item.name}</div>
+                    <div className="modal-item-id">ID #1</div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
