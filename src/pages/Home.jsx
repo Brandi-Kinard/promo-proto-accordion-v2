@@ -332,8 +332,8 @@ const Home = () => {
             </div>
           )}
           
-          {/* Persistent footer when collapsed and lines selected */}
-          {selectLinesCollapsed && selectedLines.length > 0 && (
+          {/* Persistent footer when collapsed */}
+          {selectLinesCollapsed && (
             <div style={{
               padding: '16px 20px',
               borderTop: '1px solid #f5f5f5',
@@ -345,30 +345,32 @@ const Home = () => {
               <span style={{ fontWeight: '500' }}>
                 {selectedLines.length} lines selected
               </span>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                {selectedLines.slice(0, 3).map((lineId, idx) => {
-                  const line = jifLines.find(l => l.id === lineId);
-                  return (
-                    <img
-                      key={lineId}
-                      src={line?.thumbnail}
-                      alt=""
-                      style={{
-                        width: '28px',
-                        height: '28px',
-                        borderRadius: '4px',
-                        marginLeft: idx > 0 ? '-10px' : '0',
-                        border: 'none',
-                        objectFit: 'contain',
-                        zIndex: selectedLines.length - idx
-                      }}
-                    />
-                  );
-                })}
-                {selectedLines.length > 3 && (
-                  <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
-                )}
-              </div>
+              {selectedLines.length > 0 && (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {selectedLines.slice(0, 3).map((lineId, idx) => {
+                    const line = jifLines.find(l => l.id === lineId);
+                    return (
+                      <img
+                        key={lineId}
+                        src={line?.thumbnail}
+                        alt=""
+                        style={{
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: '4px',
+                          marginLeft: idx > 0 ? '-10px' : '0',
+                          border: 'none',
+                          objectFit: 'contain',
+                          zIndex: selectedLines.length - idx
+                        }}
+                      />
+                    );
+                  })}
+                  {selectedLines.length > 3 && (
+                    <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
+                  )}
+                </div>
+              )}
             </div>
           )}
         </div>
