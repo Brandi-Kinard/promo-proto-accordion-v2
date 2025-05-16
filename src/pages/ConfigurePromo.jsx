@@ -371,6 +371,13 @@ return (
         <div className="modal-body">
           <div className="modal-table-wrapper">
             <div className="modal-table">
+              <div className="modal-table-header-row">
+                <div className="modal-table-header">Promo type</div>
+                <div className="modal-table-header">Campaign name</div>
+                <div className="modal-table-header">Items</div>
+                <div className="modal-table-header">Start date</div>
+                <div className="modal-table-header">End date</div>
+              </div>
               <div className="modal-table-row">
                 <div className="modal-table-cell">
                   <a href="#" onClick={handleResolveClick} className="modal-submap-link">

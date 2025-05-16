@@ -846,12 +846,18 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 0;
+    transition: opacity 0.2s;
+    opacity: 0.7;
+  }
+  
+  .modal-close:hover {
+    opacity: 1;
   }
   
   .modal-close img {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
   
   .modal-body {
@@ -859,11 +865,11 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background-color: #f5f5f5;
   }
   
   .modal-table-wrapper {
-    background-color: #f5f5f5;
-    padding: 16px 24px;
+    padding: 16px 24px 0;
   }
   
   .modal-table {
@@ -873,9 +879,25 @@
     border: 1px solid #e0e0e0;
   }
   
+  .modal-table-header-row {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 0.6fr 1fr 1fr;
+    gap: 16px;
+    padding: 8px 16px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .modal-table-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #777;
+    text-transform: uppercase;
+  }
+  
   .modal-table-row {
     display: grid;
-    grid-template-columns: 1.5fr 2fr 0.5fr 1fr 1fr;
+    grid-template-columns: 1.2fr 2fr 0.6fr 1fr 1fr;
     gap: 16px;
     padding: 12px 16px;
     align-items: center;
@@ -901,20 +923,23 @@
   .modal-items-section {
     flex: 1;
     overflow-y: auto;
-    padding: 20px 24px;
-    background: white;
+    padding: 16px 24px 24px;
+    min-height: 0;
   }
   
   .modal-item-row {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 12px;
+    background: white;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #e0e0e0;
   }
   
   .modal-item-row:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
   }
   
   .modal-item-thumbnail {
@@ -930,7 +955,7 @@
   
   .modal-item-name {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #333;
     margin-bottom: 4px;
   }
