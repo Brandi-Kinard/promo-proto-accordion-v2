@@ -205,23 +205,7 @@ const Home = () => {
             }}
             onClick={() => setSelectLinesCollapsed(!selectLinesCollapsed)}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#0071dc',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                fontSize: '14px'
-              }}>
-                1
-              </div>
-              <h3 style={{ margin: 0, fontSize: '16px' }}>Select Lines</h3>
-            </div>
+            <h3 style={{ margin: 0, fontSize: '16px' }}>Select Lines</h3>
             
             {/* Dynamic header content */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -383,23 +367,7 @@ const Home = () => {
             }}
             onClick={() => setConfigPromoCollapsed(!configPromoCollapsed)}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div style={{
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#0071dc',
-                color: 'white',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 'bold',
-                fontSize: '14px'
-              }}>
-                2
-              </div>
-              <h3 style={{ margin: 0, fontSize: '16px' }}>Configure Promotion</h3>
-            </div>
+            <h3 style={{ margin: 0, fontSize: '16px' }}>Configure Promotion</h3>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
               {configPromoCollapsed && (
