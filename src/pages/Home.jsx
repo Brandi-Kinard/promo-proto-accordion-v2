@@ -147,6 +147,7 @@ const Home = () => {
     } = formState;
 
     return (
+      selectedLines.length > 0 &&
       promoType &&
       badgeType &&
       discount &&
