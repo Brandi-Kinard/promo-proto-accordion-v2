@@ -256,32 +256,34 @@ const Home = () => {
               </div>
               
               {/* Footer section with blue summary */}
-              {selectedLines.length > 0 && (
+              <div style={{
+                padding: '16px 20px 20px',
+                borderTop: '1px solid #f5f5f5'
+              }}>
                 <div style={{
-                  padding: '16px 20px 20px',
-                  borderTop: '1px solid #f5f5f5'
-                }}>
-                  <div style={{
-                    backgroundColor: '#f0f7ff',
-                    borderRadius: '6px',
-                    padding: '12px 16px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    cursor: 'pointer'
-                  }}
-                  onClick={(e) => {
+                  backgroundColor: selectedLines.length > 0 ? '#f0f7ff' : '#f5f5f5',
+                  borderRadius: '6px',
+                  padding: '12px 16px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: selectedLines.length > 0 ? 'pointer' : 'default'
+                }}
+                onClick={(e) => {
+                  if (selectedLines.length > 0) {
                     e.stopPropagation();
                     setConfigPromoCollapsed(false);
                     setTimeout(() => {
                       const configSection = document.querySelector('#config-section');
                       configSection?.scrollIntoView({ behavior: 'smooth' });
                     }, 300);
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <span style={{ fontWeight: '500' }}>
-                        {selectedLines.length} lines selected
-                      </span>
+                  }
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <span style={{ fontWeight: '500' }}>
+                      {selectedLines.length} lines selected
+                    </span>
+                    {selectedLines.length > 0 && (
                       <div style={{ display: 'flex', marginLeft: '24px' }}>
                         {selectedLines.slice(0, 3).map((lineId, idx) => {
                           const line = jifLines.find(l => l.id === lineId);
@@ -306,7 +308,9 @@ const Home = () => {
                           <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
                         )}
                       </div>
-                    </div>
+                    )}
+                  </div>
+                  {selectedLines.length > 0 && (
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
@@ -322,9 +326,9 @@ const Home = () => {
                     >
                       Clear
                     </button>
-                  </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
           )}
           
@@ -389,14 +393,20 @@ const Home = () => {
               alignItems: 'center',
               cursor: 'pointer'
             }}
-            onClick={() => setConfigPromoCollapsed(!configPromoCollapsed)}
+            onClick={() => {
+              if (configPromoCollapsed && selectedLines.length === 0) {
+                // If expanding config without lines selected, collapse lines card
+                setSelectLinesCollapsed(true);
+              }
+              setConfigPromoCollapsed(!configPromoCollapsed);
+            }}
           >
             <h3 style={{ margin: 0, fontSize: '16px' }}>Configure Promotion</h3>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              {configPromoCollapsed && (
-                <span style={{ color: selectedLines.length === 0 ? '#666' : '#333' }}>
-                  {selectedLines.length === 0 ? 'Please select lines first' : 'Configure promotion details'}
+              {configPromoCollapsed && selectedLines.length === 0 && (
+                <span style={{ color: '#666' }}>
+                  Please select lines first
                 </span>
               )}
               <img 
@@ -422,6 +432,7 @@ const Home = () => {
                 onApplyPromo={handleApplyPromo}
                 onRevert={handleRevert}
                 jifLines={jifLines}
+                showSkippedLineInfo={selectedLines.length === 0 && selectLinesCollapsed}
               />
             </div>
           )}

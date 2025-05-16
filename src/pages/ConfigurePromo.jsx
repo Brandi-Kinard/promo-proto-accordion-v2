@@ -32,6 +32,7 @@ onCancel = () => {},
 onApplyPromo = () => {},
 onRevert = () => {},
 jifLines = [],
+showSkippedLineInfo = false,
 }) {
 const conflictRef = useRef(null);
 const [conflictsExpanded, setConflictsExpanded] = useState(false);
@@ -126,6 +127,13 @@ const isFormValid = [
 
 return (
 <div className="configure-promo">
+  {showSkippedLineInfo && (
+    <div className="info-banner">
+      <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/tooltip.svg" alt="Info" className="info-icon" />
+      <span>You skipped line selection. We recommend starting there.</span>
+    </div>
+  )}
+  
   {formState.hasConflict && !conflictResolved && (
     <div className="sticky-wrapper">
       <div className="banner-error" onClick={() => handleScrollToConflict()}>
