@@ -32,11 +32,28 @@ onCancel = () => {},
 onApplyPromo = () => {},
 onRevert = () => {},
 jifLines = [],
+onClosePanel = () => {},
+onReopenPanel = () => {},
 }) {
 const conflictRef = useRef(null);
 const [conflictsExpanded, setConflictsExpanded] = useState(false);
 const [conflictResolved, setConflictResolved] = useState(false);
 const [showItemsModal, setShowItemsModal] = useState(false);
+
+const handleItemsClick = (e) => {
+  e.preventDefault();
+  onClosePanel();
+  setTimeout(() => {
+    setShowItemsModal(true);
+  }, 300);
+};
+
+const handleModalClose = () => {
+  setShowItemsModal(false);
+  setTimeout(() => {
+    onReopenPanel();
+  }, 300);
+};
 
 const handleChange = (field) => (e) => {
 const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -341,7 +358,7 @@ return (
             </div>
             <div className="conflict-cell">Spring Sale</div>
             <div className="conflict-cell">
-              <a href="#" onClick={(e) => { e.preventDefault(); setShowItemsModal(true); }} className="items-link">5</a>
+              <a href="#" onClick={handleItemsClick} className="items-link">5</a>
             </div>
             <div className="conflict-cell conflict-date">
               01/01/2024
@@ -364,11 +381,11 @@ return (
   
   {/* Conflicting Items Modal */}
   {showItemsModal && (
-    <div className="modal-overlay" onClick={() => setShowItemsModal(false)}>
+    <div className="modal-overlay" onClick={handleModalClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Conflicting items</h3>
-          <button className="modal-close" onClick={() => setShowItemsModal(false)}>✕</button>
+          <button className="modal-close" onClick={handleModalClose}>✕</button>
         </div>
         
         <div className="modal-body">

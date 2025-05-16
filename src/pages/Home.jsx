@@ -413,6 +413,8 @@ const Home = () => {
                 onApplyPromo={handleApplyPromo}
                 onRevert={handleRevert}
                 jifLines={jifLines}
+                onClosePanel={() => setIsPanelOpen(false)}
+                onReopenPanel={() => setIsPanelOpen(true)}
               />
             </div>
           )}
