@@ -582,7 +582,7 @@
   .conflict-card {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    margin: 16px 24px;
+    margin: 16px 0;
     background: white;
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -595,30 +595,35 @@
   
   .conflict-header-row {
     display: grid;
-    grid-template-columns: 20% 20% 15% 15% 15% 15%;
-    padding: 8px 0;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1fr;
+    padding: 8px 12px;
     font-weight: 600;
     color: #777;
     font-size: 12px;
+    gap: 12px;
   }
   
   .conflict-row {
     display: grid;
-    grid-template-columns: 20% 20% 15% 15% 15% 15%;
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr 1fr;
     background-color: white;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
-    padding: 12px 8px;
+    padding: 12px;
     margin-top: 4px;
-    font-size: 12px;
+    font-size: 13px;
+    gap: 12px;
   }
   
   .conflict-cell {
-    padding-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .conflict-cell:last-child {
     text-align: right;
+    justify-self: end;
   }
   
   .conflict-header {
