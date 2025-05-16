@@ -363,9 +363,7 @@ return (
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Conflicting items</h3>
-          <button className="modal-close" onClick={() => setShowItemsModal(false)}>
-            <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/close.svg" alt="Close" />
-          </button>
+          <button className="modal-close" onClick={() => setShowItemsModal(false)}>✕</button>
         </div>
         
         <div className="modal-body">
