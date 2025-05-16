@@ -207,43 +207,11 @@ const Home = () => {
           >
             <h3 style={{ margin: 0, fontSize: '16px' }}>Select Lines</h3>
             
-            {/* Dynamic header content */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              {selectLinesCollapsed && selectedLines.length > 0 && (
-                <>
-                  <span>{selectedLines.length} lines selected</span>
-                  <div style={{ display: 'flex', marginLeft: '8px' }}>
-                    {selectedLines.slice(0, 3).map((lineId, idx) => {
-                      const line = jifLines.find(l => l.id === lineId);
-                      return (
-                        <img
-                          key={lineId}
-                          src={line?.thumbnail}
-                          alt=""
-                          style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '4px',
-                            marginLeft: idx > 0 ? '-10px' : '0',
-                            border: 'none',
-                            objectFit: 'contain',
-                            zIndex: selectedLines.length - idx
-                          }}
-                        />
-                      );
-                    })}
-                    {selectedLines.length > 3 && (
-                      <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
-                    )}
-                  </div>
-                </>
-              )}
-              <img 
-                src={`https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/${selectLinesCollapsed ? 'down' : 'up'}-caret.svg`}
-                alt=""
-                style={{ width: '20px', height: '20px' }}
-              />
-            </div>
+            <img 
+              src={`https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/${selectLinesCollapsed ? 'down' : 'up'}-caret.svg`}
+              alt=""
+              style={{ width: '24px', height: '24px' }}
+            />
           </div>
 
           {/* Content */}
@@ -348,69 +316,37 @@ const Home = () => {
             <div style={{
               padding: '16px 20px',
               borderTop: '1px solid #f5f5f5',
-              backgroundColor: 'white'
+              backgroundColor: 'white',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
-              <div style={{
-                backgroundColor: '#f0f7ff',
-                borderRadius: '6px',
-                padding: '12px 16px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                cursor: 'pointer'
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setConfigPromoCollapsed(false);
-                setTimeout(() => {
-                  const configSection = document.querySelector('#config-section');
-                  configSection?.scrollIntoView({ behavior: 'smooth' });
-                }, 300);
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <span style={{ fontWeight: '500' }}>
-                    {selectedLines.length} lines selected
-                  </span>
-                  <div style={{ display: 'flex', marginLeft: '24px' }}>
-                    {selectedLines.slice(0, 3).map((lineId, idx) => {
-                      const line = jifLines.find(l => l.id === lineId);
-                      return (
-                        <img
-                          key={lineId}
-                          src={line?.thumbnail}
-                          alt=""
-                          style={{
-                            width: '28px',
-                            height: '28px',
-                            borderRadius: '4px',
-                            marginLeft: idx > 0 ? '-10px' : '0',
-                            border: 'none',
-                            objectFit: 'contain',
-                            zIndex: selectedLines.length - idx
-                          }}
-                        />
-                      );
-                    })}
-                    {selectedLines.length > 3 && (
-                      <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
-                    )}
-                  </div>
-                </div>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedLines([]);
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: '#0071dc',
-                    cursor: 'pointer',
-                    textDecoration: 'underline'
-                  }}
-                >
-                  Clear
-                </button>
+              <span style={{ fontWeight: '500' }}>
+                {selectedLines.length} lines selected
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {selectedLines.slice(0, 3).map((lineId, idx) => {
+                  const line = jifLines.find(l => l.id === lineId);
+                  return (
+                    <img
+                      key={lineId}
+                      src={line?.thumbnail}
+                      alt=""
+                      style={{
+                        width: '28px',
+                        height: '28px',
+                        borderRadius: '4px',
+                        marginLeft: idx > 0 ? '-10px' : '0',
+                        border: 'none',
+                        objectFit: 'contain',
+                        zIndex: selectedLines.length - idx
+                      }}
+                    />
+                  );
+                })}
+                {selectedLines.length > 3 && (
+                  <span style={{ marginLeft: '8px' }}>+{selectedLines.length - 3}</span>
+                )}
               </div>
             </div>
           )}
@@ -449,7 +385,7 @@ const Home = () => {
               <img 
                 src={`https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/${configPromoCollapsed ? 'down' : 'up'}-caret.svg`}
                 alt=""
-                style={{ width: '20px', height: '20px' }}
+                style={{ width: '24px', height: '24px' }}
               />
             </div>
           </div>
