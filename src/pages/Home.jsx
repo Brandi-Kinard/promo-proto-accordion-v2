@@ -207,7 +207,6 @@ const Home = () => {
           <div 
             style={{
               padding: '12px 20px',
-              borderBottom: '1px solid #eee',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -390,7 +389,6 @@ const Home = () => {
           <div 
             style={{
               padding: '12px 20px',
-              borderBottom: '1px solid #eee',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
