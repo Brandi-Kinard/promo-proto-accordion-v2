@@ -369,41 +369,43 @@ return (
         </div>
         
         <div className="modal-body">
-          <div className="modal-table-wrapper">
-            <div className="modal-table">
-              <div className="modal-table-header-row">
-                <div className="modal-table-header">Promo type</div>
-                <div className="modal-table-header">Campaign name</div>
-                <div className="modal-table-header">Items</div>
-                <div className="modal-table-header">Start date</div>
-                <div className="modal-table-header">End date</div>
-              </div>
-              <div className="modal-table-row">
-                <div className="modal-table-cell">
-                  <a href="#" onClick={handleResolveClick} className="modal-submap-link">
-                    Submap
-                    <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/link.svg" alt="External link" className="link-icon" />
-                  </a>
+          <div className="modal-gray-area">
+            <div className="modal-table-wrapper">
+              <div className="modal-table">
+                <div className="modal-table-header-row">
+                  <div className="modal-table-header">Promo type</div>
+                  <div className="modal-table-header">Campaign name</div>
+                  <div className="modal-table-header">Items</div>
+                  <div className="modal-table-header">Start date</div>
+                  <div className="modal-table-header">End date</div>
                 </div>
-                <div className="modal-table-cell">Spring Sale</div>
-                <div className="modal-table-cell">4</div>
-                <div className="modal-table-cell">01/01/2024</div>
-                <div className="modal-table-cell">02/01/2024</div>
+                <div className="modal-table-row">
+                  <div className="modal-table-cell">
+                    <a href="#" onClick={handleResolveClick} className="modal-submap-link">
+                      Submap
+                      <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/link.svg" alt="External link" className="link-icon" />
+                    </a>
+                  </div>
+                  <div className="modal-table-cell">Spring Sale</div>
+                  <div className="modal-table-cell">4</div>
+                  <div className="modal-table-cell">01/01/2024</div>
+                  <div className="modal-table-cell">02/01/2024</div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="modal-items-section">
-            <div className="modal-items-container">
-              {conflictingItems.map(item => (
-                <div key={item.id} className="modal-item-row">
-                  <img src={item.thumbnail} alt="" className="modal-item-thumbnail" />
-                  <div className="modal-item-info">
-                    <div className="modal-item-name">{item.name}</div>
-                    <div className="modal-item-id">ID #1</div>
+            
+            <div className="modal-items-section">
+              <div className="modal-items-container">
+                {conflictingItems.map(item => (
+                  <div key={item.id} className="modal-item-row">
+                    <img src={item.thumbnail} alt="" className="modal-item-thumbnail" />
+                    <div className="modal-item-info">
+                      <div className="modal-item-name">{item.name}</div>
+                      <div className="modal-item-id">ID #1</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
