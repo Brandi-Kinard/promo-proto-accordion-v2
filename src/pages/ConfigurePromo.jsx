@@ -306,7 +306,6 @@ return (
           <div className="conflict-row">
             <div className="conflict-cell">
               <div className="promo-type-cell">
-                <img src="https://raw.githubusercontent.com/Brandi-Kinard/SVGs/refs/heads/main/error-outlined.svg" alt="Error" className="error-icon-small" />
                 <span>Non-Clearance</span>
               </div>
             </div>

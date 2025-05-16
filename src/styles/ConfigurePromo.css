@@ -728,21 +728,24 @@
     position: absolute;
     visibility: hidden;
     width: 180px;
+    min-height: auto;
     background-color: #222;
     color: #fff;
     text-align: left;
     border-radius: 4px;
-    padding: 8px 10px;
+    padding: 10px 12px;
     z-index: 9999;
     top: 125%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.2s;
-    font-size: 11px;
-    line-height: 1.4;
+    font-size: 12px;
+    line-height: 1.5;
     font-weight: normal;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    white-space: normal;
+    word-wrap: break-word;
   }
   
   .conflict-tooltip::after {
