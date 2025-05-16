@@ -43,16 +43,12 @@ const [showItemsModal, setShowItemsModal] = useState(false);
 const handleItemsClick = (e) => {
   e.preventDefault();
   onClosePanel();
-  setTimeout(() => {
-    setShowItemsModal(true);
-  }, 300);
+  setShowItemsModal(true);
 };
 
 const handleModalClose = () => {
   setShowItemsModal(false);
-  setTimeout(() => {
-    onReopenPanel();
-  }, 300);
+  onReopenPanel();
 };
 
 const handleChange = (field) => (e) => {
@@ -185,7 +181,6 @@ return (
           <CustomDropdown
             options={[
               { value: '', label: 'Select badge type' },
-              { value: 'None', label: 'None' },
               { value: 'Reduced price', label: 'Reduced price' },
               { value: 'Normal', label: 'Normal' }
             ]}
@@ -216,6 +211,7 @@ return (
           <CustomDropdown
             options={[
               { value: '', label: 'Select event' },
+              { value: 'None', label: 'None' },
               { value: 'Event 1', label: 'Event 1' },
               { value: 'Event 2', label: 'Event 2' },
               { value: 'Event 3', label: 'Event 3' }
