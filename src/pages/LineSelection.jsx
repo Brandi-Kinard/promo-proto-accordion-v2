@@ -5,9 +5,6 @@ import './LineSelection.css';
 export default function LineSelection({ lines = [], selectedLines = [], toggleLine = () => {} }) {
   return (
     <div className="line-selection">
-      <h2>Select lines</h2>
-      <p className="selection-description">Choose the lines to apply a promotion to.</p>
-
       <ul className="line-list">
         {lines?.map((line) => (
           <li key={line.id} className="line-item">

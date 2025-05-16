@@ -264,68 +264,98 @@ const Home = () => {
 
           {/* Content */}
           {!selectLinesCollapsed && (
-            <div style={{ padding: '20px', backgroundColor: 'white' }}>
+            <div style={{ backgroundColor: 'white', position: 'relative' }}>
+              {/* Sticky header section */}
+              <div style={{
+                position: 'sticky',
+                top: 0,
+                backgroundColor: 'white',
+                padding: '20px 20px 16px',
+                borderBottom: '1px solid #f5f5f5',
+                zIndex: 1
+              }}>
+                <p style={{ 
+                  margin: '0 0 12px', 
+                  color: '#555',
+                  fontSize: '14px',
+                  lineHeight: '1.4'
+                }}>
+                  Choose the lines to apply a promotion to.
+                </p>
+                
+                {selectedLines.length > 0 && (
+                  <div style={{
+                    backgroundColor: '#f0f7ff',
+                    borderRadius: '6px',
+                    padding: '12px 16px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                    <span style={{ fontWeight: '500' }}>
+                      {selectedLines.length} lines selected
+                    </span>
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedLines([]);
+                      }}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#0071dc',
+                        cursor: 'pointer',
+                        textDecoration: 'underline'
+                      }}
+                    >
+                      Clear
+                    </button>
+                  </div>
+                )}
+              </div>
+              
+              {/* Scrollable content */}
+              <div style={{ 
+                maxHeight: '280px',
+                overflowY: 'auto',
+                padding: '0 20px 20px'
+              }}>
+                <LineSelection
+                  lines={jifLines}
+                  selectedLines={selectedLines}
+                  toggleLine={toggleLine}
+                />
+              </div>
+              
+              {/* Continue button section */}
               {selectedLines.length > 0 && (
                 <div style={{
-                  backgroundColor: '#f0f7ff',
-                  borderRadius: '6px',
-                  padding: '12px 16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '16px'
+                  padding: '16px 20px 20px',
+                  borderTop: '1px solid #f5f5f5'
                 }}>
-                  <span style={{ fontWeight: '500' }}>
-                    {selectedLines.length} lines selected
-                  </span>
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedLines([]);
+                      setConfigPromoCollapsed(false);
+                      setTimeout(() => {
+                        const configSection = document.querySelector('#config-section');
+                        configSection?.scrollIntoView({ behavior: 'smooth' });
+                      }, 300);
                     }}
                     style={{
-                      background: 'none',
+                      backgroundColor: '#0071dc',
+                      color: 'white',
                       border: 'none',
-                      color: '#0071dc',
+                      borderRadius: '25px',
+                      padding: '8px 20px',
                       cursor: 'pointer',
-                      textDecoration: 'underline'
+                      fontWeight: '500',
+                      width: '100%'
                     }}
                   >
-                    Clear
+                    Continue to Step 2
                   </button>
                 </div>
-              )}
-              
-              <LineSelection
-                lines={jifLines}
-                selectedLines={selectedLines}
-                toggleLine={toggleLine}
-              />
-              
-              {selectedLines.length > 0 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setConfigPromoCollapsed(false);
-                    setTimeout(() => {
-                      const configSection = document.querySelector('#config-section');
-                      configSection?.scrollIntoView({ behavior: 'smooth' });
-                    }, 300);
-                  }}
-                  style={{
-                    backgroundColor: '#0071dc',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '25px',
-                    padding: '8px 20px',
-                    cursor: 'pointer',
-                    fontWeight: '500',
-                    marginTop: '16px',
-                    width: '100%'
-                  }}
-                >
-                  Continue to Step 2
-                </button>
               )}
             </div>
           )}
